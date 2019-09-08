@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import data from './data';
 
@@ -10,8 +10,15 @@ import ProductContext from './contexts/ProductContext';
 import CardContext from './contexts/CartContext';
 
 function App() {
+  const initialCart = () =>
+    JSON.parse(window.localStorage.getItem('cart')) || [];
+
   const [products] = useState(data);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(initialCart);
+
+  useEffect(() => {
+    window.localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
   const addItem = item => {
     if (cart.includes(item)) {
