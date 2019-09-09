@@ -21,7 +21,7 @@ function App() {
   }, [cart]);
 
   const addItem = item => {
-    if (!cart.includes(item)) {
+    if (!cart.find(cartItem => cartItem.id === item.id)) {
       setCart([...cart, item]);
     }
   };
